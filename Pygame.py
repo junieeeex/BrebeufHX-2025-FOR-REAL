@@ -97,6 +97,15 @@ def go_to_tags():
 def go_to_restaurants():
     global current_state
     current_state = RESTAURANTS_PAGE
+    
+def go_to_restaurants2():
+    global current_state
+    current_state = RESTAURANTS_PAGE2
+
+def go_to_restaurants3():
+    global current_state
+    current_state = RESTAURANTS_PAGE3
+
 
 def get_distance():
     input_distance = input_box1.text
@@ -153,13 +162,15 @@ def check_image_red():
 
 
 input_distance = get_distance()
-input_coordinates = get_coordinates()
+input_postal_code = get_postal_code()
         
 
 next1_button = Button(150, 600, 100, 40, "Next", (GREEN) ,function_next1_button)
 next2_button = Button(75, 300, 250, 300, "Start Swiping!", (GREEN), go_to_front_page)
 next3_button = Button( 170, 700, 60, 40, "Next", (0,0,0), go_to_tags)
 next4_button = Button( 20, 500, 60, 20, "Next", (0,255,0), go_to_restaurants)
+next5_button = Button( 20, 500, 60, 20, "Next", (0,255,0), go_to_restaurants2)
+next6_button = Button( 20, 500, 60, 20, "Next", (0,255,0), go_to_restaurants3)
 
 yes_button = Button(300, 625, 60, 40, "Yes!", (GREEN), check_image_green)
 no_button = Button(40, 625, 60, 40, "No!", (LIGHT_BURGANDY), check_image_red)
@@ -169,6 +180,8 @@ MAIN_MENU = 2
 FRONT_PAGE = 3
 TAGS_PAGE = 4
 RESTAURANTS_PAGE = 5
+RESTAURANTS_PAGE2 = 6
+RESTAURANTS_PAGE3 = 7
 
 
 current_state = PREFERRED_DISTANCE_PAGE
@@ -275,6 +288,16 @@ def main():
                     if next4_button.is_hovered(event.pos):
                         next4_button.click()
                         pygame.display.update()
+
+                elif current_state == RESTAURANTS_PAGE:
+                    if next5_button.is_hovered(event.pos):
+                        next5_button.click()
+                        pygame.display.update()
+
+                elif current_state == RESTAURANTS_PAGE2:
+                    if next6_button.is_hovered(event.pos):
+                        next6_button.click()
+                        pygame.display.update()
                 
 
     
@@ -363,6 +386,23 @@ def main():
                 label1 = Times_font.render("Restaurants!", 1, (0,0,0))
                 screen.blit(label1,(10,10))
                 pygame.display.flip()
+
+            elif current_state == RESTAURANTS_PAGE2:
+                restaurants = Kw.search_matches(coordinates, input_distance)
+                screen.fill((DARK_BURGANDY))
+                pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
+                label1 = Times_font.render("Restaurants!", 1, (0,0,0))
+                screen.blit(label1,(10,10))
+                pygame.display.flip()
+            
+            elif current_state == RESTAURANTS_PAGE3:
+                restaurants = Kw.search_matches(coordinates, input_distance)
+                screen.fill((DARK_BURGANDY))
+                pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
+                label1 = Times_font.render("Restaurants!", 1, (0,0,0))
+                screen.blit(label1,(10,10))
+                pygame.display.flip()
+            
 
             
 
