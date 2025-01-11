@@ -26,9 +26,14 @@ class Kw:
             if(kw == kw_name):
                 if kw.add_count() >= 3:
                     matching_kws.add(kw)
-                    return
+                    return True
+                
+                return False
             
+                
         kws.add(Kw(kw_name))
+        return False
+        
 
     @staticmethod
     def get_matches():
@@ -54,16 +59,13 @@ api=GooglePlaces('AIzaSyB8N3cgIEi8Ww2igo5I_uY9ikn9YocvNKk')
 coordinates = "45.5016286, -73.6235556"
 radius = "400"
 def search_matches():
-    
     matches = Kw.get_matches()
-    places = dict()
+    restaurants = []
     for kw in matches:
         local_places = api.get_local_places(coordinates, radius, kw)
-        places[kw] = list()
-        for place in local_places:
-            places[kw].append(place[0])
+        restaurants.add(local_places)
     
-    return places
+    return restaurants
 
 places = search_matches()
 for key in places:

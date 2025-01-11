@@ -3,6 +3,7 @@ import pygame
 import sys
 import numpy as np
 import time
+from Kw import Kw
 pygame.init()
 
 screen_width = 400
@@ -302,7 +303,9 @@ def main():
 
                     pygame.display.flip()
                     if draw_check_green:
-                        draw_green()
+                        if Kw.add_count_by_name(tag):
+                            draw_match()
+                        else: draw_green()
                         pygame.display.update()
                         pygame.time.wait(500)
                         draw_check_green = False
@@ -323,6 +326,8 @@ def main():
                 
     
             elif current_state == TAGS_PAGE:
+                matches = Kw.get_matches() # These are Keyword objects but it'll return as strings if you just use them
+                
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Your Tags", 1, (0,0,0))
