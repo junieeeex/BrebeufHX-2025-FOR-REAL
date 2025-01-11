@@ -41,7 +41,7 @@ class GooglePlaces(object):
     def get_local_places(self, coordinates, radius, keyword):
         places = self.search_places_by_coordinate(coordinates, radius, keyword)
 
-        fields=['name','formatted_address', 'url']
+        fields=['name','formatted_address', 'url', 'rating']
 
         international_chains = [
             "McDonald's",
@@ -50,6 +50,7 @@ class GooglePlaces(object):
             "Subway",
             "Starbucks",
             "Domino's Pizza",
+            "Pizza Pizza"
             "Pizza Hut",
             "Taco Bell",
             "Dunkin' Donuts",
@@ -66,7 +67,7 @@ class GooglePlaces(object):
         ]
         local_places = []
         for place in places:
-            details=api.get_place_details(place['place_id'],fields)
+            details=self.get_place_details(place['place_id'],fields)
             try:
                 name = details['result']['name']
                 if(name in international_chains):
@@ -84,7 +85,14 @@ class GooglePlaces(object):
             except KeyError:
                 url = ""
 
-            local_places.append([name, address, url])
+
+            try:
+                rating = details['result']['rating']
+            except KeyError:
+                rating = ""
+            
+
+            local_places.append([name, address, url, rating])
 
 
         return local_places
@@ -94,16 +102,16 @@ class GooglePlaces(object):
 
 
 
-api=GooglePlaces('AIzaSyB8N3cgIEi8Ww2igo5I_uY9ikn9YocvNKk')
-coordinates = "45.5016286, -73.6235556"
-radius = "500"
-keyword = "cafe"
+# api=GooglePlaces('AIzaSyB8N3cgIEi8Ww2igo5I_uY9ikn9YocvNKk')
+# coordinates = "45.5016286, -73.6235556"
+# radius = "500"
+# keyword = "cafe"
 
     
-local_places = api.get_local_places(coordinates, radius, keyword)
+# local_places = api.get_local_places(coordinates, radius, keyword)
 
-for place in local_places:
+# for place in local_places:
 
-    print("Name:", place[0])
-    print("Address:", place[1])
-    print("Url:", place[2])
+#     print("Name:", place[0])
+#     print("Address:", place[1])
+#     print("Url:", place[2])

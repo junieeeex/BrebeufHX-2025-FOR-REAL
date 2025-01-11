@@ -1,5 +1,7 @@
-kws = set(('american food', 'fried chicken', 'fast food', 'korean food', 'cafe', 'bakery', 'thai food', 'indian food', 'mexican food', 'chinese food', 'japanese food', 'pizza', 'italian food', 'noodles', 'ice cream', 'baked goods'))
- # TODO hard code all types
+from GooglePlaces import GooglePlaces
+api=GooglePlaces('AIzaSyB8N3cgIEi8Ww2igo5I_uY9ikn9YocvNKk')
+
+
 matching_kws = set()
 
 class Kw:
@@ -40,6 +42,18 @@ class Kw:
     def get_matches():
         return matching_kws
     
+    @staticmethod
+    def search_matches(coordinates, radius):
+        matches = Kw.get_matches()
+        restaurants = []
+        for kw in matches:
+            print(kw)
+            local_places = api.get_local_places(coordinates, radius, kw)
+            restaurants.append(local_places)
+        
+        return restaurants
+
+    
     
     def __eq__(self, other):
         if self.name == other:
@@ -52,22 +66,19 @@ class Kw:
     def __hash__(self):
         return hash(self.name)
     
-matching_kws.add(Kw("cafe"))
-matching_kws.add(Kw("restaurant"))
-from GooglePlaces import GooglePlaces
 
-api=GooglePlaces('AIzaSyB8N3cgIEi8Ww2igo5I_uY9ikn9YocvNKk')
-coordinates = "45.5016286, -73.6235556"
-radius = "400"
-def search_matches():
-    matches = Kw.get_matches()
-    restaurants = []
-    for kw in matches:
-        local_places = api.get_local_places(coordinates, radius, kw)
-        restaurants.add(local_places)
+kws_str = set(('american food', 'fried chicken', 'fast food', 'korean food', 'cafe', 'bakery', 'thai food', 'indian food', 'mexican food', 'chinese food', 'japanese food', 'pizza', 'italian food', 'noodles', 'ice cream', 'baked goods'))
+kws = set()
+for name in kws_str:
+    kws.add(Kw(name))
+
     
-    return restaurants
+matching_kws.add(Kw("japanese restaurant"))
+matching_kws.add(Kw("korean restaurant"))
 
-places = search_matches()
-for key in places:
-    print(str(key) + ": " + places[key])
+
+
+coordinates = "45.49426171303169, -73.5794899059468"
+radius = "400"
+
+
