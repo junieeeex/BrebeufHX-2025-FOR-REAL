@@ -26,20 +26,70 @@ for x in place_ids:
     for i in place_ids[x]:
         list_foods.append(i)
 
+print(list_foods)
+
 random.shuffle(list_foods)
 
 import pygame
+import sys
+clock=pygame.time.Clock()
 
 pygame.init()
 X = 650
 Y = 650
 
+font = pygame.font.Font(None, 24)
+
+
 screen = pygame.display.set_mode((X,Y))
 
-run = True
-while run:
+counter = 0
+
+
+
+button_surface = pygame.Surface((150,50))
+
+                   
+text = font.render("Click Me", True, (0, 0, 0))
+text_rect = text.get_rect(center=(button_surface.get_width()/2, button_surface.get_height()/2))
+
+button_rect = pygame.Rect(125,125,150,50)
+
+while True:
+
+    clock.tick(60)
+    screen.fill((155,255,155))
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run: False
+            pygame.quit()
+            sys.exit
+
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            if button_rect.collidepoint(event.pos):
+                counter += 1
+
+        if button_rect.collidepoint(pygame.mouse.get_pos()):
+            pygame.draw.rect(button_surface, (127, 255, 212), (1, 1, 148, 48))
+        else:
+            pygame.draw.rect(button_surface, (0, 0, 0), (0, 0, 150, 50))
+            pygame.draw.rect(button_surface, (255, 255, 255), (1, 1, 148, 48))
+            pygame.draw.rect(button_surface, (0, 0, 0), (1, 1, 148, 1), 2)
+            pygame.draw.rect(button_surface, (0, 100, 0), (1, 48, 148, 10), 2)
+
+        button_surface.blit(text, text_rect)
+        screen.blit(button_surface, (button_rect.x, button_rect.y))
+        
+
+
+        foodlabel = font.render(list_foods[counter], 1, (255, 255, 255))
+        screen.blit(foodlabel,(325,325))
+
+        
+
+        pygame.display.update()
+        pygame.display.flip()
+
+    print(counter)
 
 print(list_foods)
