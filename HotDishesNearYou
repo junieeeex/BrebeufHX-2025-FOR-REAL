@@ -1,1 +1,45 @@
 
+place_ids = {
+    "japanese_restaurant": [
+        "Sushi",
+        "Ramen",
+        "Tempura",
+        "Onigiri"
+    ],
+    "italian_restaurant": [
+        "Pizza",
+        "Pasta",
+        "Risotto"
+    ],
+    "chinese_restaurant": [
+        "Dim Sum",
+        "Dumpling",
+        "Noodles"
+    ],
+}
+
+import random
+
+list_foods = []
+
+for x in place_ids:
+    for i in place_ids[x]:
+        list_foods.append(i)
+
+random.shuffle(list_foods)
+
+import pygame
+
+pygame.init()
+X = 650
+Y = 650
+
+screen = pygame.display.set_mode((X,Y))
+
+run = True
+while run:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run: False
+
+print(list_foods)
