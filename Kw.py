@@ -1,4 +1,5 @@
-kws = set() # TODO hard code all types
+kws = set(('american food', 'fried chicken', 'fast food', 'korean food', 'cafe', 'bakery', 'thai food', 'indian food', 'mexican food', 'chinese food', 'japanese food', 'pizza', 'italian food', 'noodles', 'ice cream', 'baked goods'))
+ # TODO hard code all types
 matching_kws = set()
 
 class Kw:
