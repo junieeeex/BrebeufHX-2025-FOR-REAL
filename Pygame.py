@@ -296,7 +296,7 @@ def main():
                 yes_button.draw(screen)
                 if show_image:
                     image = photo_list_tag[row][0]
-                    tag = photo_list_tag[row][1]
+                    tag = photo_list_tag[row][1:]
                     photo = pygame.image.load(image)
                     resized_image = pygame.transform.scale(photo, (300, 400))
                     screen.blit(resized_image, (50,200))
