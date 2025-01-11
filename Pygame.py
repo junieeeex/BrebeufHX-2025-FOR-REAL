@@ -4,7 +4,8 @@ import sys
 import numpy as np
 import time
 from Kw import Kw
-from get_coords import extract_coords
+import os
+from pygame.locals import *
 pygame.init()
 
 screen_width = 400
@@ -40,12 +41,13 @@ class Button:
             self.action()
 
 class InputBox:
-    def __init__(self, x, y, w, h):
+    def __init__(self, x, y, w, h, prompt = "Entrez une température"):
         self.rect = pygame.Rect(x, y, w, h)
         self.color = (DARK_BURGANDY)
         self.text = ''
         self.txt_surface = Times_font.render(self.text, True, (DARK_BURGANDY))
         self.active = False
+        self.prompt = prompt
         self.input_value = None
 
     def handle_event(self, event):
@@ -75,8 +77,7 @@ class InputBox:
 
 
 #input temp
-input_box1 = InputBox(100, 550, 200, 32)
-input_box2 = InputBox(100, 350, 200, 32)
+input_box1 = InputBox(100, 350, 200, 32)
 
 def go_to_preferred_distance():
     global current_state
@@ -110,19 +111,6 @@ def get_distance():
 
     return input_distance
 
-def get_coordinates():
-    global coordinates
-    input_postal_code = input_box2.text
-    if input_box2.input_value:
-        try:
-            input_postal_code = str(input_box2.input_value)
-        except ValueError:
-            print("invalid input", input_postal_code)
-
-    coordinates = extract_coords(input_postal_code)
-    return str(coordinates)[1:-1]
-
-
 
 def function_next1_button():
     get_distance()
@@ -155,10 +143,9 @@ def check_image_red():
 
 
 input_distance = get_distance()
-input_postal_code = get_postal_code()
         
 
-next1_button = Button(150, 600, 100, 40, "Next", (GREEN) ,function_next1_button)
+next1_button = Button(150, 500, 100, 40, "Next", (GREEN) ,function_next1_button)
 next2_button = Button(75, 300, 250, 300, "Start Swiping!", (GREEN), go_to_front_page)
 next3_button = Button( 170, 700, 60, 40, "Next", (0,0,0), go_to_tags)
 next4_button = Button( 20, 500, 60, 20, "Next", (0,255,0), go_to_restaurants)
@@ -233,8 +220,6 @@ def draw_green():
     pygame.draw.line(screen, (255,255,255), (150, 400), (200, 450), 10)
     pygame.draw.line(screen, (255,255,255), (200, 450), (220, 350), 10)
 
-def draw_match():
-    pass #TODO 
 
 def main():
     global draw_check_green
@@ -251,7 +236,6 @@ def main():
                 running = False
 
             input_box1.handle_event(event)
-            input_box2.handle_event(event)
             
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if current_state == PREFERRED_DISTANCE_PAGE:
@@ -287,14 +271,11 @@ def main():
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Your preferred distance", 1, (GREEN))
-                screen.blit(label1,(45,470))
+                screen.blit(label1,(45,200))
                 label2 = Times_font.render("(m)", 1, (GREEN))
-                screen.blit(label2, (310, 550))
-                label3 = Times_font.render("Enter Postal Code", 1, (GREEN))
-                screen.blit(label3, (100, 260))
+                screen.blit(label2, (310, 350))
                 next1_button.draw(screen)
                 input_box1.update()
-                input_box2.update()
                 pygame.display.flip()
 
             elif current_state == MAIN_MENU:
@@ -348,6 +329,7 @@ def main():
     
             elif current_state == TAGS_PAGE:
                 matches = Kw.get_matches() # These are Keyword objects but it'll return as strings if you just use them
+                
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Your Tags", 1, (0,0,0))
@@ -356,7 +338,6 @@ def main():
                 pygame.display.flip()
             
             elif current_state == RESTAURANTS_PAGE:
-                restaurants = Kw.search_matches(coordinates, input_distance)
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Restaurants!", 1, (0,0,0))
