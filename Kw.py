@@ -47,7 +47,6 @@ class Kw:
         matches = Kw.get_matches()
         restaurants = []
         for kw in matches:
-            print(kw)
             local_places = api.get_local_places(coordinates, radius, kw)
             restaurants.append(local_places)
         
@@ -73,9 +72,6 @@ for name in kws_str:
     kws.add(Kw(name))
 
     
-matching_kws.add(Kw("japanese restaurant"))
-matching_kws.add(Kw("korean restaurant"))
-
 
 
 coordinates = "45.49426171303169, -73.5794899059468"

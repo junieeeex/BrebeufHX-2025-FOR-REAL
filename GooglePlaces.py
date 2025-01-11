@@ -92,7 +92,10 @@ class GooglePlaces(object):
                 rating = ""
             
 
+            print([name, address, url, rating])
             local_places.append([name, address, url, rating])
+
+        
 
 
         return local_places

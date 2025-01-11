@@ -127,6 +127,7 @@ def get_coordinates():
             print("invalid input", input_postal_code)
 
     coordinates = extract_coords(input_postal_code)
+    print(coordinates)
     return str(coordinates)[1:-1]
 
 
@@ -346,6 +347,7 @@ def main():
                     pygame.display.flip()
                     if draw_check_green:
                         for t in tag:
+                            print(t)
                             if Kw.add_count_by_name(t):
                                 draw_match()
                             else: draw_green()
@@ -390,13 +392,12 @@ def main():
                 for r in restaurants:
                     name = r[0]
                     address = r[1]
-                    review = r[3]
-                    label1 = Times_font.render(name, 1, (0,0,0))
+
+                    label1 = Times_font.render(str(name), 1, (0,0,0))
                     screen.blit(label1,(40,100+y))
-                    label2 = Times_font.render(address, 1, (0,0,0))
+                    label2 = Times_font.render(str(address), 1, (0,0,0))
                     screen.blit(label1,(40,140+y))
-                    label3 = Times_font.render(review, 1, (0,0,0))
-                    screen.blit(label1,(40,180+y))
+ 
                     y+=100
                     
                 pygame.display.flip()
