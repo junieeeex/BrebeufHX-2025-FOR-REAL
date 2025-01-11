@@ -162,7 +162,7 @@ def check_image_red():
 
 
 input_distance = get_distance()
-input_postal_code = get_postal_code()
+input_coordinates = get_coordinates()
         
 
 next1_button = Button(150, 600, 100, 40, "Next", (GREEN) ,function_next1_button)
@@ -206,7 +206,6 @@ photo_list_tag = [
     ['gingerthing.PNG', "thai food"],
     ['eggchicken.PNG', "thai food"],
     ['bols.PNG', "thai food"],
-    ['padthai.PNG', "thai food"],
     ['redcurry.PNG', "indian food"],
     ['pate.PNG', "indian food"],
     ['mix.PNG', "indian food"],
@@ -255,6 +254,7 @@ def main():
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("Hot dishes in your area")
     running = True
+    restaurants = []
     while running:
 
         for event in pygame.event.get():
@@ -345,9 +345,10 @@ def main():
 
                     pygame.display.flip()
                     if draw_check_green:
-                        if Kw.add_count_by_name(tag):
-                            draw_match()
-                        else: draw_green()
+                        for t in tag:
+                            if Kw.add_count_by_name(t):
+                                draw_match()
+                            else: draw_green()
                         pygame.display.update()
                         pygame.time.wait(500)
                         draw_check_green = False
@@ -379,7 +380,7 @@ def main():
                 pygame.display.flip()
             
             elif current_state == RESTAURANTS_PAGE:
-                restaurants = Kw.search_matches(input_coordinates, input_distance)
+                restaurants.append(Kw.search_matches(input_coordinates, input_distance))
                 print(restaurants)
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
@@ -388,7 +389,6 @@ def main():
                 pygame.display.flip()
 
             elif current_state == RESTAURANTS_PAGE2:
-                restaurants = Kw.search_matches(coordinates, input_distance)
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Restaurants!", 1, (0,0,0))
@@ -396,7 +396,6 @@ def main():
                 pygame.display.flip()
             
             elif current_state == RESTAURANTS_PAGE3:
-                restaurants = Kw.search_matches(coordinates, input_distance)
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Restaurants!", 1, (0,0,0))
