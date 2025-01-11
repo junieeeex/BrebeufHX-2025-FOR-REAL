@@ -99,7 +99,6 @@ def go_to_restaurants():
     current_state = RESTAURANTS_PAGE
 
 def get_distance():
-    global input_distance
     input_distance = input_box1.text
     if input_box1.input_value:
         try:
@@ -111,7 +110,6 @@ def get_distance():
     return input_distance
 
 def get_coordinates():
-    global coordinates
     input_postal_code = input_box2.text
     if input_box2.input_value:
         try:
@@ -155,7 +153,7 @@ def check_image_red():
 
 
 input_distance = get_distance()
-input_postal_code = get_postal_code()
+input_coordinates = get_coordinates()
         
 
 next1_button = Button(150, 600, 100, 40, "Next", (GREEN) ,function_next1_button)
@@ -348,6 +346,8 @@ def main():
     
             elif current_state == TAGS_PAGE:
                 matches = Kw.get_matches() # These are Keyword objects but it'll return as strings if you just use them
+                for m in matches:
+                    print(m)
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Your Tags", 1, (0,0,0))
@@ -356,7 +356,8 @@ def main():
                 pygame.display.flip()
             
             elif current_state == RESTAURANTS_PAGE:
-                restaurants = Kw.search_matches(coordinates, input_distance)
+                restaurants = Kw.search_matches(input_coordinates, input_distance)
+                print(restaurants)
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Restaurants!", 1, (0,0,0))
