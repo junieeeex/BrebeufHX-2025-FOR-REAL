@@ -386,6 +386,19 @@ def main():
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Restaurants!", 1, (0,0,0))
                 screen.blit(label1,(10,10))
+                y = 0
+                for r in restaurants:
+                    name = r[0]
+                    address = r[1]
+                    review = r[3]
+                    label1 = Times_font.render(name, 1, (0,0,0))
+                    screen.blit(label1,(40,100+y))
+                    label2 = Times_font.render(address, 1, (0,0,0))
+                    screen.blit(label1,(40,140+y))
+                    label3 = Times_font.render(review, 1, (0,0,0))
+                    screen.blit(label1,(40,180+y))
+                    y+=100
+                    
                 pygame.display.flip()
 
             elif current_state == RESTAURANTS_PAGE2:
@@ -393,6 +406,8 @@ def main():
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Restaurants!", 1, (0,0,0))
                 screen.blit(label1,(10,10))
+                
+
                 pygame.display.flip()
             
             elif current_state == RESTAURANTS_PAGE3:
