@@ -11,7 +11,7 @@ class Kw:
         
 
     def __str__(self):
-        return f"{self.name} : {self.count}"
+        return self.name
     
     def add_count(self):
         self.count += 1
@@ -28,6 +28,7 @@ class Kw:
         for kw in kws:
             if(kw == kw_name):
                 if kw.add_count() >= 3:
+                    print("EFUHWEIGFOWNIEYFGNI")
                     matching_kws.add(kw)
                     return True
                 
@@ -47,7 +48,9 @@ class Kw:
         matches = Kw.get_matches()
         restaurants = []
         for kw in matches:
-            local_places = api.get_local_places(coordinates, radius, kw)
+            print("awefa:"+ str(kw))
+            local_places = api.get_local_places(coordinates, radius, str(kw))
+
             restaurants.append(local_places)
         
         return restaurants

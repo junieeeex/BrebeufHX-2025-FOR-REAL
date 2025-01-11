@@ -247,10 +247,28 @@ def draw_green():
 def draw_match():
     pass #TODO 
 
+
+matches = []
+restaurants = []
+def trr():
+    if(matches == []) : return
+    matches = Kw.get_matches() # These are Keyword objects but it'll return as strings if you just use them
+    print(len(matches))
+
+def search():
+    if(restaurants == []): return
+
+    restaurants = Kw.search_matches("45.5016286, -73.6235556", "500")
+    print(restaurants)
+
+
+
 def main():
     global draw_check_green
     global draw_check_red
     global row
+    global matches
+    global restaurant
     pygame.init()
     screen = pygame.display.set_mode((screen_width, screen_height))
     pygame.display.set_caption("Hot dishes in your area")
@@ -371,9 +389,11 @@ def main():
                 
     
             elif current_state == TAGS_PAGE:
-                matches = Kw.get_matches() # These are Keyword objects but it'll return as strings if you just use them
-                for m in matches:
-                    print(m)
+            
+                if(matches != []):
+                    matches = Kw.get_matches() # These are Keyword objects but it'll return as strings if you just use them
+                    print(len(matches))
+                
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Your Tags", 1, (0,0,0))
@@ -382,9 +402,11 @@ def main():
                 pygame.display.flip()
             
             elif current_state == RESTAURANTS_PAGE:
-                restaurants.append(Kw.search_matches(input_coordinates, input_distance))
-                print(restaurants)
+                if(restaurants == []):  
+                    restaurants = Kw.search_matches("45.5016286, -73.6235556", "500")
+                    print(restaurants)
                 screen.fill((DARK_BURGANDY))
+                resFont = pygame.font.SysFont("markerfelt", 20)
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
                 label1 = Times_font.render("Restaurants!", 1, (0,0,0))
                 screen.blit(label1,(10,10))
@@ -393,9 +415,9 @@ def main():
                     name = r[0]
                     address = r[1]
 
-                    label1 = Times_font.render(str(name), 1, (0,0,0))
+                    label1 = resFont.render(str(name), 1, (0,0,0))
                     screen.blit(label1,(40,100+y))
-                    label2 = Times_font.render(str(address), 1, (0,0,0))
+                    label2 = resFont.render(str(address), 1, (0,0,0))
                     screen.blit(label1,(40,140+y))
  
                     y+=100
@@ -405,7 +427,7 @@ def main():
             elif current_state == RESTAURANTS_PAGE2:
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
-                label1 = Times_font.render("Restaurants!", 1, (0,0,0))
+                label1 = resFont.render("Restaurants!", 1, (0,0,0))
                 screen.blit(label1,(10,10))
                 
 
@@ -414,7 +436,7 @@ def main():
             elif current_state == RESTAURANTS_PAGE3:
                 screen.fill((DARK_BURGANDY))
                 pygame.draw.rect(screen, (BEIGE), pygame.Rect(20, 20, 360, 760))
-                label1 = Times_font.render("Restaurants!", 1, (0,0,0))
+                label1 = resFont.render("Restaurants!", 1, (0,0,0))
                 screen.blit(label1,(10,10))
                 pygame.display.flip()
             
@@ -427,6 +449,5 @@ def main():
 
 main()
 
-print(input_distance)
 
 

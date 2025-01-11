@@ -105,16 +105,16 @@ class GooglePlaces(object):
 
 
 
-# api=GooglePlaces('AIzaSyB8N3cgIEi8Ww2igo5I_uY9ikn9YocvNKk')
-# coordinates = "45.5016286, -73.6235556"
-# radius = "500"
-# keyword = "cafe"
+api=GooglePlaces('AIzaSyB8N3cgIEi8Ww2igo5I_uY9ikn9YocvNKk')
+coordinates = "45.5016286, -73.6235556"
+radius = "500"
+keyword = "japanese food"
 
     
-# local_places = api.get_local_places(coordinates, radius, keyword)
+local_places = api.get_local_places(coordinates, radius, keyword)
 
-# for place in local_places:
+for place in local_places:
 
-#     print("Name:", place[0])
-#     print("Address:", place[1])
-#     print("Url:", place[2])
+    print("Name:", place[0])
+    print("Address:", place[1])
+    print("Url:", place[2])
