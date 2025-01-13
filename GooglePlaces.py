@@ -63,7 +63,8 @@ class GooglePlaces(object):
             "Hard Rock Cafe",
             "Denny's",
             "Pret A Manger",
-            "HOOTERS"
+            "HOOTERS",
+            "Thai Express"
         ]
         local_places = []
         for place in places:
