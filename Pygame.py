@@ -192,7 +192,7 @@ photo_list_tag = [
     ['fries.PNG',  "american food","fast food"],
     ['chicken_fried.PNG', "american food","fried chicken","fast food"],
     ['hotdog.PNG', "american food","hot dog","fast food"],
-    ['beef?.PNG', "korean food",],
+    ['beef.PNG', "korean food",],
     ['bibimbap.PNG', "korean food"],
     ['koreanfriedchicken.PNG', "korean food"],
     ['kimbap.PNG', "korean food"],
